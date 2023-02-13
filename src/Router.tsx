@@ -5,7 +5,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/'>
+        <Route path='/' exact>
           <Coins />
         </Route>
       </Switch>

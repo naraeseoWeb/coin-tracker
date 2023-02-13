@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Helmet } from 'react-helmet';
-import { HelmetProvider } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { fetchCoins } from './api';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -15,7 +15,6 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 `;
 
 const Title = styled.h1`
@@ -43,7 +42,7 @@ const Coin = styled.li`
   }
 `;
 
-interface Icoin {
+interface ICoin {
   id: string;
   name: string;
   symbol: string;
@@ -54,7 +53,7 @@ interface Icoin {
 }
 
 const Coins = () => {
-  const { isLoading, data } = useQuery<Icoin[]>(['allCoins'], fetchCoins);
+  const { isLoading, data } = useQuery<ICoin[]>(['allCoins'], fetchCoins);
 
   return (
     <Container>
@@ -71,7 +70,9 @@ const Coins = () => {
       ) : (
         <CoinsList>
           {data?.slice(0, 100).map((coin) => (
-            <Coin key={coin.id}>{coin.name}</Coin>
+            <Coin key={coin.id}>
+              <Link to={`/${coin.id}`}>{coin.name}</Link>
+            </Coin>
           ))}
         </CoinsList>
       )}
