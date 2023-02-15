@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo } from './api';
 
@@ -8,12 +8,35 @@ const Container = styled.div`
   padding: 0 20px;
   max-width: 480px;
   margin: 0 auto;
+  position: relative;
 `;
 const Header = styled.header`
   height: 15vh;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Button = styled.button`
+  border: 1px ${(props) => props.theme.textColor} solid;
+  outline: 0;
+  font: inherit;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
+  padding: 0.5rem 1rem;
+  font-size: 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  position: absolute;
+`;
+
+const HomeBtn = styled(Button)`
+  left: 0;
+`;
+
+const ThemeBtn = styled(Button)`
+  right: 0;
 `;
 
 const Title = styled.h1`
@@ -33,6 +56,7 @@ const Overview = styled.div`
   padding: 10px 20px;
   border-radius: 10px;
 `;
+
 const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -73,7 +97,11 @@ const Coin = () => {
         <title>{state?.name}</title>
       </Helmet>
       <Header>
+        <HomeBtn>
+          <Link to='/'>&larr; Home</Link>
+        </HomeBtn>
         <Title>{state?.name}</Title>
+        <ThemeBtn>Mode Change</ThemeBtn>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>

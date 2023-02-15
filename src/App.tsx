@@ -1,6 +1,6 @@
 import Router from './Router';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -54,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: sans-seri, 'Source Sans Pro',;
     background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor}
   }

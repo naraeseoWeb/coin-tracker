@@ -42,6 +42,17 @@ const Coin = styled.li`
   }
 `;
 
+const Loader = styled.span`
+  text-align: center;
+  display: block;
+`;
+
+const Img = styled.img`
+  width: 35px;
+  height: 35px;
+  margin-right: 15px;
+`;
+
 interface ICoin {
   id: string;
   name: string;
@@ -66,7 +77,7 @@ const Coins = () => {
         <Title>Coins</Title>
       </Header>
       {isLoading ? (
-        <div>loading</div>
+        <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
           {data?.slice(0, 100).map((coin) => (
@@ -77,6 +88,11 @@ const Coins = () => {
                   state: { name: coin.name },
                 }}
               >
+                {' '}
+                <Img
+                  src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                  alt='coinSymbol'
+                />
                 {coin.name} &rarr;
               </Link>
             </Coin>
