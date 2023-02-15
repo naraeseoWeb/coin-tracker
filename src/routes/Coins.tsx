@@ -71,7 +71,14 @@ const Coins = () => {
         <CoinsList>
           {data?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>{coin.name}</Link>
+              <Link
+                to={{
+                  pathname: `/${coin.id}`,
+                  state: { name: coin.name },
+                }}
+              >
+                {coin.name} &rarr;
+              </Link>
             </Coin>
           ))}
         </CoinsList>
