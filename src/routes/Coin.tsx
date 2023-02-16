@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchCoinInfo } from './api';
+import { fetchCoinInfo, fetchCoinTickers } from './api';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -78,18 +78,82 @@ interface RouteParams {
   coinId: string;
 }
 
-interface InfoData {}
+interface InfoData {
+  id: string;
+  name: string;
+  symbol: string;
+  rank: number;
+  is_new: boolean;
+  is_active: boolean;
+  type: string;
+  logo: string;
+  tags: [];
+  team: [];
+  description: string;
+  message: string;
+  open_source: boolean;
+  started_at: string;
+  development_status: string;
+  hardware_wallet: boolean;
+  proof_type: string;
+  org_structure: string;
+  hash_algorithm: string;
+  links: [];
+  links_extended: [];
+  whitepaper: [];
+  first_data_at: string;
+  last_data_at: string;
+}
+
+interface TickersData {
+  id: string;
+  name: string;
+  symbol: string;
+  rank: number;
+  circulating_supply: number;
+  total_supply: number;
+  max_supply: number;
+  beta_value: number;
+  first_data_at: string;
+  last_updated: string;
+  quotes: {
+    USD: {
+      price: number;
+      volume_24h: number;
+      volume_24h_change_24h: number;
+      market_cap: number;
+      market_cap_change_24h: number;
+      percent_change_15m: number;
+      percent_change_30m: number;
+      percent_change_1h: number;
+      percent_change_6h: number;
+      percent_change_12h: number;
+      percent_change_24h: number;
+      percent_change_7d: number;
+      percent_change_30d: number;
+      percent_change_1y: number;
+      ath_price: number;
+      ath_date: string;
+      percent_from_price_ath: number;
+    };
+  };
+}
 
 const Coin = () => {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
 
-  const { isLoading, data } = useQuery<InfoData>(['info', coinId], () =>
-    fetchCoinInfo(coinId!)
+  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
+    ['info', coinId],
+    () => fetchCoinInfo(coinId!)
   );
 
-  console.log(isLoading);
-  console.log(data);
+  const { isLoading: tickersLoading, data: tickersData } =
+    useQuery<TickersData>(['ticker', coinId], () => fetchCoinTickers(coinId!), {
+      refetchInterval: 100000,
+    });
+
+  const loading = infoLoading || tickersLoading;
 
   return (
     <Container>
@@ -103,14 +167,22 @@ const Coin = () => {
         <Title>{state?.name}</Title>
         <ThemeBtn>Mode Change</ThemeBtn>
       </Header>
-      {isLoading ? (
+      {loading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
           <Overview>
             <OverviewItem>
               <span>Rank: </span>
-              <span></span>
+              <span>{infoData?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol: </span>
+              <span>{infoData?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Price: </span>
+              <span>{tickersData?.quotes.USD.price.toFixed(2)}</span>
             </OverviewItem>
           </Overview>
         </>
