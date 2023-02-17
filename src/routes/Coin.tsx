@@ -1,6 +1,6 @@
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from './api';
 
@@ -75,9 +75,24 @@ const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin: 25px 0;
+  gap: 10px;
 `;
 
-const Tab = styled.span;
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
+    color: inherit;
+  }
+`;
 
 interface RouteState {
   name: string;
@@ -151,6 +166,8 @@ interface TickersData {
 const Coin = () => {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
+  const priceMatch = useRouteMatch('/:coinId/price');
+  const chartMatch = useRouteMatch('/:coinId/chart');
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ['info', coinId],
@@ -168,14 +185,18 @@ const Coin = () => {
     <Container>
       <HelmetProvider>
         <Helmet>
-          <title>{state?.name}</title>
+          <title>
+            {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
+          </title>
         </Helmet>
       </HelmetProvider>
       <Header>
         <HomeBtn>
           <Link to='/'>&larr; Home</Link>
         </HomeBtn>
-        <Title>{state?.name}</Title>
+        <Title>
+          {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
+        </Title>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -206,7 +227,14 @@ const Coin = () => {
               <span>{tickersData?.max_supply}</span>
             </OverviewItem>
           </Overview>
-          <Tabs></Tabs>
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
         </>
       )}
     </Container>
