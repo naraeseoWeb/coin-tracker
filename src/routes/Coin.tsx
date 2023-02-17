@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
 `;
+
 const Header = styled.header`
   height: 15vh;
   display: flex;
@@ -33,10 +34,6 @@ const Button = styled.button`
 
 const HomeBtn = styled(Button)`
   left: 0;
-`;
-
-const ThemeBtn = styled(Button)`
-  right: 0;
 `;
 
 const Title = styled.h1`
@@ -69,6 +66,18 @@ const OverviewItem = styled.div`
     margin-bottom: 5px;
   }
 `;
+
+const Description = styled.p`
+  margin: 20px 0;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0;
+`;
+
+const Tab = styled.span;
 
 interface RouteState {
   name: string;
@@ -157,15 +166,16 @@ const Coin = () => {
 
   return (
     <Container>
-      <Helmet>
-        <title>{state?.name}</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>{state?.name}</title>
+        </Helmet>
+      </HelmetProvider>
       <Header>
         <HomeBtn>
           <Link to='/'>&larr; Home</Link>
         </HomeBtn>
         <Title>{state?.name}</Title>
-        <ThemeBtn>Mode Change</ThemeBtn>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -182,9 +192,21 @@ const Coin = () => {
             </OverviewItem>
             <OverviewItem>
               <span>Price: </span>
-              <span>{tickersData?.quotes.USD.price.toFixed(2)}</span>
+              <span>$ {tickersData?.quotes.USD.price.toFixed(2)}</span>
             </OverviewItem>
           </Overview>
+          <Description>{infoData?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Suply: </span>
+              <span>{tickersData?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Suply: </span>
+              <span>{tickersData?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+          <Tabs></Tabs>
         </>
       )}
     </Container>
