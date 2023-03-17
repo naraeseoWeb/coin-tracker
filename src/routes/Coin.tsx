@@ -1,8 +1,17 @@
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
-import { Link, useLocation, useParams, useRouteMatch } from 'react-router-dom';
+import {
+  Link,
+  Route,
+  Switch,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from './api';
+import Chart from './Chart';
+import Price from './Price';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -235,6 +244,14 @@ const Coin = () => {
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
+          <Switch>
+            <Route path='/chart'>
+              <Chart />
+            </Route>
+            <Route path='/price'>
+              <Price />
+            </Route>
+          </Switch>
         </>
       )}
     </Container>
