@@ -244,12 +244,13 @@ const Coin = () => {
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
+
           <Switch>
-            <Route path='/chart'>
-              <Chart coinId={coinId} />
-            </Route>
-            <Route path='/price'>
+            <Route path={`/:coinId/price`}>
               <Price />
+            </Route>
+            <Route path={`/:coinId/chart`}>
+              <Chart coinId={coinId} />
             </Route>
           </Switch>
         </>
