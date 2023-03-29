@@ -246,7 +246,7 @@ const Coin = () => {
           </Tabs>
           <Switch>
             <Route path='/chart'>
-              <Chart />
+              <Chart coinId={coinId} />
             </Route>
             <Route path='/price'>
               <Price />
