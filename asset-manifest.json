@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/naraeseoWeb.github.io/coin-tracker/static/js/main.6a93eeb7.js",
-    "index.html": "/naraeseoWeb.github.io/coin-tracker/index.html",
-    "main.6a93eeb7.js.map": "/naraeseoWeb.github.io/coin-tracker/static/js/main.6a93eeb7.js.map"
+    "main.js": "/coin-tracker/static/js/main.37efe3d5.js",
+    "index.html": "/coin-tracker/index.html",
+    "main.37efe3d5.js.map": "/coin-tracker/static/js/main.37efe3d5.js.map"
   },
   "entrypoints": [
-    "static/js/main.6a93eeb7.js"
+    "static/js/main.37efe3d5.js"
   ]
 }
