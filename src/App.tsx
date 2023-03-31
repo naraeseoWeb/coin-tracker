@@ -100,7 +100,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-        <GlobalStyle />{' '}
+        <GlobalStyle />
         <ThemeContainer>
           <ThemeBtn onClick={toggleDarkMode}>
             {isDarkMode ? 'Light Mode' : 'Dark Mode'}

@@ -6,10 +6,10 @@ const Router = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
-        <Route path='/:coinId/*'>
+        <Route path='/:coinId'>
           <Coin />
         </Route>
-        <Route path='/' exact>
+        <Route path='/'>
           <Coins />
         </Route>
       </Switch>
