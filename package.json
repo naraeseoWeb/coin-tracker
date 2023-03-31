@@ -1,4 +1,4 @@
-{  
+{
   "homepage": "https://naraeseoWeb.github.io/coin-tracker",
   "name": "nomad-coin-tracker",
   "version": "0.1.0",
@@ -58,5 +58,4 @@
     "@types/styled-components": "^5.1.26",
     "gh-pages": "^5.0.0"
   }
-
 }
