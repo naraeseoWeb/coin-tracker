@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/naraeseoWeb/coin-tracker/static/js/main.dd22ae9a.js",
+    "index.html": "/naraeseoWeb/coin-tracker/index.html",
+    "main.dd22ae9a.js.map": "/naraeseoWeb/coin-tracker/static/js/main.dd22ae9a.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.dd22ae9a.js"
+  ]
+}
