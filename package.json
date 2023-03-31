@@ -1,4 +1,5 @@
-{
+{  
+  "homepage": "https://naraeseoWeb.github.io/coin-tracker",
   "name": "nomad-coin-tracker",
   "version": "0.1.0",
   "private": true,
@@ -12,7 +13,6 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "apexcharts": "^3.37.2",
-    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
@@ -55,7 +55,8 @@
     "@types/react-helmet": "^6.1.6",
     "@types/react-helmet-async": "^1.0.3",
     "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.26"
-  },
-  "homepage": "https://naraeseoWeb.github.io/coin-tracker"
+    "@types/styled-components": "^5.1.26",
+    "gh-pages": "^5.0.0"
+  }
+
 }
