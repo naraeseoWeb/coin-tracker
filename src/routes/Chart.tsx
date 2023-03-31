@@ -23,7 +23,7 @@ const Chart = ({ coinId }: ChartProps) => {
     ['ohlcv', coinId],
     () => fetchCoinHistory(coinId),
     {
-      refetchInterval: 5000,
+      refetchInterval: 10000,
     }
   );
 

@@ -1,6 +1,9 @@
 import Router from './Router';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { useState } from 'react';
+import { darkTheme, lightTheme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -64,12 +67,48 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const ThemeContainer = styled.div`
+  padding: 0 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+`;
+
+const ThemeBtn = styled.button`
+  position: absolute;
+  right: 0;
+  top: 30px;
+  border: 1px ${(props) => props.theme.textColor} solid;
+  outline: 0;
+  font: inherit;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
+  padding: 0.5rem 1rem;
+  font-size: 12px;
+  border-radius: 5px;
+  font-weight: bold;
+`;
+
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+        <GlobalStyle />{' '}
+        <ThemeContainer>
+          <ThemeBtn onClick={toggleDarkMode}>
+            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+          </ThemeBtn>
+        </ThemeContainer>
+        <Router />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
     </>
   );
 }
