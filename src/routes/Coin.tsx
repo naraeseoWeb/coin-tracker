@@ -207,7 +207,7 @@ const Coin = () => {
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </Title>
       </Header>
-      {loading ? (
+      {/* {loading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
@@ -254,7 +254,7 @@ const Coin = () => {
             </Route>
           </Switch>
         </>
-      )}
+      )} */}
     </Container>
   );
 };
