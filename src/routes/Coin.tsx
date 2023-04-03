@@ -180,11 +180,11 @@ const Coin = () => {
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ['info', coinId],
-    () => fetchCoinInfo(coinId!)
+    () => fetchCoinInfo(coinId)
   );
 
   const { isLoading: tickersLoading, data: tickersData } =
-    useQuery<TickersData>(['ticker', coinId], () => fetchCoinTickers(coinId!), {
+    useQuery<TickersData>(['tickers', coinId], () => fetchCoinTickers(coinId), {
       refetchInterval: 100000,
     });
 
@@ -207,7 +207,7 @@ const Coin = () => {
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </Title>
       </Header>
-      {/* {loading ? (
+      {loading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
@@ -254,7 +254,7 @@ const Coin = () => {
             </Route>
           </Switch>
         </>
-      )} */}
+      )}
     </Container>
   );
 };
